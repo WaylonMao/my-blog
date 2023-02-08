@@ -4,10 +4,18 @@ body{
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    background-color: $lightGreen;
 }
 .app{
+    display: flex;
+    justify-content: center;
     .container{
+        width: 1024px;
+
+        .link{
+            text-decoration: none;
+            color: black;
+        }
+
         //Login & Register
         .auth{
             display: flex;
@@ -51,5 +59,63 @@ body{
                 }
             }
         }
+
+        //Navbar
+        .navbar{
+            .container{
+                padding: 10px 0px;
+                justify-content: space-between;
+                display: flex;
+                align-items: center;
+                .logo{
+                    img{
+                        width: 120px;
+                    }
+                }
+                .links{
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    h6{
+                        font-size: 16px;
+                        font-weight: 300;
+                    }
+                    span{
+                        cursor: pointer;
+                    }
+                    .write{
+                        background-color: $lightGreen;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: 300;
+                        border: 1px solid white;
+                        &:hover{
+                            background-color: white;
+                            color: teal;
+                            border: 1px solid teal;
+                        }
+                    }
+                }
+            }
+        }
+        // Footer
+        footer{
+            margin-top: 100px;
+            padding: 20px;
+            background-color: $lightGreen;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            img{
+                height: 50px;
+            }
+
+        }
+
     }
 }
