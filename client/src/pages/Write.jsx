@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const write = () => {
-  return (
-    <div>write</div>
-  )
-}
+  return <div>write</div>;
+};
 
-export default write
+export default write;
