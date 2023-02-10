@@ -7,8 +7,8 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/api/posts', authRoutes);
-app.use('/api/posts', userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 
 app.listen(8000, () => {
