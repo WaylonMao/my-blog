@@ -1,5 +1,6 @@
 import { db } from '../db.js';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 export const register = (req, res) => {
   // Check if the user already exists
@@ -49,6 +50,14 @@ export const login = (req, res) => {
       return res.status(400).json('Incorrect username or password!');
     }
     // Create a token
+    const token = jwt.sign({ id: result[0].id }, 'jwtkey');
+    const { password, ...other } = result[0];
+    res
+      .cookie('access_token', token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json(other);
   });
 };
 
