@@ -1,63 +1,65 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Edit from '../img/edit.png';
 import Delete from '../img/delete.png';
 import Menu from '../components/Menu';
+import axios from 'axios';
+import moment from 'moment';
+import { AuthContext } from '../context/authContext';
 
 const Single = () => {
+  const [post, setPost] = useState([]);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const postId = location.pathname.split('/')[2];
+
+  const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await axios.get(`/posts/${postId}`);
+        setPost(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchPosts();
+  }, [postId]);
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/posts/${postId}`);
+      navigate('/');
+      window.location.replace('/');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className='single'>
       <div className='content'>
-        <img
-          src='https://images.pexels.com/photos/4230630/pexels-photo-4230630.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-          alt=''
-        />
+        <img src={post?.img} alt='' />
         <div className='user'>
-          <img
-            src='https://images.pexels.com/photos/4230630/pexels-photo-4230630.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-            alt=''
-          />
+          {post.userImg && <img src={post.userImg} alt='' />}
           <div className='info'>
-            <span>userName</span>
-            <p>Posted 4 days ago</p>
+            <span>{post.username}</span>
+            <p>Posted {moment(post.date).fromNow()}</p>
           </div>
-          <div className='edit'>
-            <Link to={`/write?edit=`}>
-              <img src={Edit} alt='' />
-            </Link>
-            <img src={Delete} alt='' />
-          </div>
+          {currentUser?.username === post.username && (
+            <div className='edit'>
+              <Link to={`/write?edit=`}>
+                <img src={Edit} alt='' />
+              </Link>
+              <img onClick={handleDelete} src={Delete} alt='' />
+            </div>
+          )}
         </div>
-        <h1>Title</h1>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-          semper ac orci vitae pretium. Suspendisse sed nunc et mi suscipit
-          commodo. In blandit, libero rutrum pretium sollicitudin, magna nisi
-          lacinia urna, at congue eros augue in lorem. Morbi maximus dolor vitae
-          consequat sagittis. Maecenas vel dui felis. Orci varius natoque
-          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-          Suspendisse leo tellus, eleifend quis enim vehicula, consectetur
-          elementum nisl. Curabitur ornare quis ex quis pharetra. <br />
-          <br />
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-          semper ac orci vitae pretium. Suspendisse sed nunc et mi suscipit
-          commodo. In blandit, libero rutrum pretium sollicitudin, magna nisi
-          lacinia urna, at congue eros augue in lorem. Morbi maximus dolor vitae
-          consequat sagittis. Maecenas vel dui felis. Orci varius natoque
-          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-          Suspendisse leo tellus, eleifend quis enim vehicula, consectetur
-          elementum nisl. Curabitur ornare quis ex quis pharetra. <br />
-          <br />
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-          semper ac orci vitae pretium. Suspendisse sed nunc et mi suscipit
-          commodo. In blandit, libero rutrum pretium sollicitudin, magna nisi
-          lacinia urna, at congue eros augue in lorem. Morbi maximus dolor vitae
-          consequat sagittis. Maecenas vel dui felis. Orci varius natoque
-          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-          Suspendisse leo tellus, eleifend quis enim vehicula, consectetur
-          elementum nisl. Curabitur ornare quis ex quis pharetra. <br />
-          <br />
-        </p>
+        <h1>{post.title}</h1>
+        {post.desc}
       </div>
       <Menu />
     </div>
