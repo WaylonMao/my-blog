@@ -6,7 +6,7 @@ import Menu from '../components/Menu';
 import axios from 'axios';
 import moment from 'moment';
 import { AuthContext } from '../context/authContext';
-import DOMPurify from 'dompurify';
+import MDEditor from '@uiw/react-md-editor';
 
 const Single = () => {
   const [post, setPost] = useState([]);
@@ -42,7 +42,7 @@ const Single = () => {
 
   return (
     <div className='single'>
-      <div className='content'>
+      <div className='content' data-color-mode='light'>
         <img src={`../upload/${post?.img}`} alt='' />
         <div className='user'>
           {post.userImg && <img src={post.userImg} alt='' />}
@@ -60,10 +60,10 @@ const Single = () => {
           )}
         </div>
         <h1>{post.title}</h1>
-        <p
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(post.desc),
-          }}></p>
+        <MDEditor.Markdown
+          source={post.desc}
+          style={{ whiteSpace: 'pre-wrap' }}
+        />
       </div>
       <Menu cat={post.cat} />
     </div>

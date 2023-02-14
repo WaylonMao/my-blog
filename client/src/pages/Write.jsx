@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
+import MDEditor from '@uiw/react-md-editor';
 
 const Write = () => {
   const state = useLocation().state;
-  const [value, setValue] = useState(state?.title || '');
-  const [title, setTitle] = useState(state?.desc || '');
+  const [value, setValue] = useState(state?.desc || '');
+  const [title, setTitle] = useState(state?.title || '');
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState(state?.cat || '');
 
@@ -19,7 +18,8 @@ const Write = () => {
       const formData = new FormData();
       formData.append('file', file);
       const res = await axios.post('/upload', formData);
-      return res.data;
+      console.log(res.data.file.filename);
+      return res.data.file.filename;
     } catch (err) {
       console.log(err);
     }
@@ -58,13 +58,8 @@ const Write = () => {
           placeholder='Title'
           onChange={(e) => setTitle(e.target.value)}
         />
-        <div className='editorContainer'>
-          <ReactQuill
-            className='editor'
-            theme='snow'
-            value={value}
-            onChange={setValue}
-          />
+        <div data-color-mode='light'>
+          <MDEditor className='editor' value={value} onChange={setValue} />
         </div>
       </div>
       <div className='menu'>
