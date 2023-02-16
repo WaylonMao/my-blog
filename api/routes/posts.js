@@ -6,13 +6,14 @@ import {
   getPosts,
   updatePost,
 } from '../controllers/post.js';
+import protect from '../middleware/protect.js';
 
 const router = express.Router();
 
 router.get('/', getPosts);
 router.get('/:id', getPost);
-router.post('/', addPost);
-router.put('/:id', updatePost);
-router.delete('/:id', deletePost);
+router.post('/', protect, addPost);
+router.put('/:id', protect, updatePost);
+router.delete('/:id', protect, deletePost);
 
 export default router;
