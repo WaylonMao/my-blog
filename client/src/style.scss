@@ -402,5 +402,48 @@ body {
         }
       }
     }
+
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: $lightGreen;
+      h1 {
+        font-size: 20px;
+        color: teal;
+        margin-bottom: 20px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        padding: 50px;
+        background-color: white;
+        width: 200px;
+        gap: 20px;
+        input {
+          padding: 10px;
+          border: none;
+          border-bottom: 1px solid gray;
+        }
+        button {
+          padding: 10px;
+          border: none;
+          background-color: teal;
+          color: white;
+          cursor: pointer;
+        }
+        p {
+          color: red;
+          text-align: center;
+          font-size: 12px;
+        }
+        span {
+          text-align: center;
+          font-size: 12px;
+        }
+      }
+    }
   }
 }

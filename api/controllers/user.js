@@ -1,4 +1,5 @@
 import { db } from '../db.js';
+import bcrypt from 'bcryptjs';
 
 export const getUserById = async (req, res) => {
   const q = 'SELECT `username`,`email`, `img` FROM users WHERE id = ?';
@@ -28,6 +29,13 @@ export const updateUser = async (req, res) => {
     if (req.body.img) {
       q += '`img`=?,';
       values.push(req.body.img);
+    }
+    if (req.body.password) {
+      q += '`password`=?,';
+      // Hash the password
+      const salt = bcrypt.genSaltSync(10);
+      const hash = bcrypt.hashSync(req.body.password, salt);
+      values.push(hash);
     }
 
     // Remove the last comma from the query string

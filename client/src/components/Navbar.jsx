@@ -24,7 +24,9 @@ const Navbar = () => {
           <Link className='link' to='/?cat=prpject'>
             <h6>Projects</h6>
           </Link>
-          <span>{currentUser?.username}</span>
+          <Link className='link' to='/profile'>
+            <span>{currentUser?.username}</span>
+          </Link>
           {currentUser ? (
             <>
               <span onClick={logout}>Logout</span>

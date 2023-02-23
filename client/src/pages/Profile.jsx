@@ -57,10 +57,20 @@ const Profile = () => {
     }
   };
 
+  const updatePassword = async () => {
+    try {
+      const res = await axios.put(`/users/${id}`, { password });
+      console.log(res);
+      localStorage.setItem('user', JSON.stringify(res.data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className='profile'>
-      <div className='container'>
-        <h1>Profile Id:{id}</h1>
+      <h1>Profile</h1>
+      <form action=''>
         <label htmlFor='username'>Username: </label>
         <input
           type='text'
@@ -79,9 +89,9 @@ const Profile = () => {
           value={password}
           onChange={handleInput}
         />
-        <button>Save</button>
+        <button onClick={updatePassword}>Save</button>
         <img src={`../upload/${img}`} alt='img' />
-      </div>
+      </form>
     </div>
   );
 };
