@@ -4,6 +4,7 @@ import userRoutes from './routes/users.js';
 import postRoutes from './routes/posts.js';
 import cookieParser from 'cookie-parser';
 import multer from 'multer';
+import protect from './middleware/protect.js';
 
 const app = express();
 
@@ -21,7 +22,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.post('/api/upload', upload.single('file'), function (req, res) {
+app.post('/api/upload', protect, upload.single('file'), function (req, res) {
   const file = req.file;
   res.status(200).json({ file });
 });

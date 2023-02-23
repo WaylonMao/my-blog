@@ -91,68 +91,24 @@ const Write = () => {
           <div className='cat'>
             <input
               type='radio'
-              checked={cat === 'art'}
+              checked={cat === 'article'}
               name='cat'
-              value='art'
-              id='art'
+              value='article'
+              id='article'
               onChange={(e) => setCat(e.target.value)}
             />
-            <label htmlFor='art'>Art</label>
+            <label htmlFor='article'>Article</label>
           </div>
           <div className='cat'>
             <input
               type='radio'
-              checked={cat === 'science'}
+              checked={cat === 'prpject'}
               name='cat'
-              value='science'
-              id='science'
+              value='prpject'
+              id='prpject'
               onChange={(e) => setCat(e.target.value)}
             />
-            <label htmlFor='science'>Science</label>
-          </div>
-          <div className='cat'>
-            <input
-              type='radio'
-              checked={cat === 'technology'}
-              name='cat'
-              value='technology'
-              id='technology'
-              onChange={(e) => setCat(e.target.value)}
-            />
-            <label htmlFor='technology'>Technology</label>
-          </div>
-          <div className='cat'>
-            <input
-              type='radio'
-              checked={cat === 'cinema'}
-              name='cat'
-              value='cinema'
-              id='cinema'
-              onChange={(e) => setCat(e.target.value)}
-            />
-            <label htmlFor='cinema'>Cinema</label>
-          </div>
-          <div className='cat'>
-            <input
-              type='radio'
-              checked={cat === 'design'}
-              name='cat'
-              value='design'
-              id='design'
-              onChange={(e) => setCat(e.target.value)}
-            />
-            <label htmlFor='design'>Design</label>
-          </div>
-          <div className='cat'>
-            <input
-              type='radio'
-              checked={cat === 'food'}
-              name='cat'
-              value='food'
-              id='food'
-              onChange={(e) => setCat(e.target.value)}
-            />
-            <label htmlFor='food'>Food</label>
+            <label htmlFor='prpject'>Prpject</label>
           </div>
         </div>
       </div>

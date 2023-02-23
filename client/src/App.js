@@ -7,6 +7,8 @@ import Write from './pages/Write';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import './style.scss';
+import About from './pages/About';
+import Profile from './pages/Profile';
 
 const Layout = () => {
   return (
@@ -28,12 +30,20 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: '/about',
+        element: <About />,
+      },
+      {
         path: '/write',
         element: <Write />,
       },
       {
         path: '/post/:postId',
         element: <Single />,
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
       },
     ],
   },

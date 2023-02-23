@@ -16,14 +16,18 @@ const Menu = ({ cat }) => {
     fetchPosts();
   }, [cat]);
 
+  const handleClick = (id) => () => {
+    window.location.href = `/post/${id}`;
+  };
+
   return (
     <div className='menu'>
       <h1>Other posts you may like</h1>
       {posts.map((post) => (
         <div className='post' key={post.id}>
-          <img src={post.img} alt='' />
+          <img src={`../upload/${post.img}`} alt='' />
           <h2>{post.title}</h2>
-          <button>Read More</button>
+          <button onClick={handleClick(post.id)}>Read More</button>
         </div>
       ))}
     </div>
