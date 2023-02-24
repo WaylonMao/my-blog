@@ -1,5 +1,6 @@
 import { db } from '../db.js';
 import bcrypt from 'bcryptjs';
+import fs from 'fs';
 
 export const getUserById = async (req, res) => {
   const q = 'SELECT `username`,`email`, `img` FROM users WHERE id = ?';
@@ -7,6 +8,21 @@ export const getUserById = async (req, res) => {
     if (err) return res.json(err);
     return res.status(200).json(result[0]);
   });
+};
+
+const deleteFile = (filename) => {
+  const filePath = `../client/public/upload/${filename}`;
+  try {
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log(`${filePath} was deleted`);
+    });
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const updateUser = async (req, res) => {
@@ -29,6 +45,10 @@ export const updateUser = async (req, res) => {
     if (req.body.img) {
       q += '`img`=?,';
       values.push(req.body.img);
+      console.log(result[0].img);
+      if (result[0].img) {
+        deleteFile(result[0].img);
+      }
     }
     if (req.body.password) {
       q += '`password`=?,';

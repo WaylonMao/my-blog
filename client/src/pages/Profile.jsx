@@ -8,6 +8,8 @@ const Profile = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [img, setImg] = useState('');
+  const [imgFile, setImgFile] = useState(null);
+  const [imgPreview, setImgPreview] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -67,6 +69,35 @@ const Profile = () => {
     }
   };
 
+  const previewImg = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImgFile(file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImgPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const replaceImg = async () => {
+    const formData = new FormData();
+    formData.append('file', imgFile);
+    try {
+      const resImg = await axios.post(`/upload`, formData);
+      console.log(resImg.data.file.filename);
+      setImg(resImg.data.file.filename);
+      setImgPreview(null);
+      const res = await axios.put(`/users/${id}`, {
+        img: resImg.data.file.filename,
+      });
+      localStorage.setItem('user', JSON.stringify(res.data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className='profile'>
       <h1>Profile</h1>
@@ -91,6 +122,15 @@ const Profile = () => {
         />
         <button onClick={updatePassword}>Save</button>
         <img src={`../upload/${img}`} alt='img' />
+        <input type='file' name='img' onChange={previewImg} />
+        {imgPreview ? (
+          <>
+            <img src={imgPreview} alt='Preview' />
+            <button onClick={replaceImg}>Save</button>
+          </>
+        ) : (
+          <p>No image selected</p>
+        )}
       </form>
     </div>
   );
