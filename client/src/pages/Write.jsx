@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import MDEditor from '@uiw/react-md-editor';
 
 const Write = () => {
-  const state = useLocation().state;
-  const [value, setValue] = useState(state?.desc || '');
-  const [title, setTitle] = useState(state?.title || '');
-  const [file, setFile] = useState(null);
-  const [cat, setCat] = useState(state?.cat || '');
-
+  const location = useLocation();
   const navigate = useNavigate();
+  const [value, setValue] = useState('');
+  const [title, setTitle] = useState('');
+  const [file, setFile] = useState(null);
+  const [cat, setCat] = useState('');
 
   const upload = async () => {
     try {
@@ -30,32 +29,52 @@ const Write = () => {
     const imgUrl = await upload();
 
     try {
-      state
-        ? await axios.put(`/posts/${state.id}`, {
-            title,
-            desc: value,
-            cat,
-            img: file ? imgUrl : '',
-          })
-        : await axios.post(`/posts/`, {
-            title,
-            desc: value,
-            cat,
-            img: file ? imgUrl : '',
-            date: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
-          });
+      if (location.search.startsWith('?edit=')) {
+        const postId = location.search.substring(6);
+        await axios.put(`/posts/${postId}`, {
+          title,
+          desc: value,
+          cat,
+          img: file ? imgUrl : '',
+        });
+      } else {
+        await axios.post(`/posts/`, {
+          title,
+          desc: value,
+          cat,
+          img: file ? imgUrl : '',
+          date: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+        });
+      }
       navigate('/');
     } catch (err) {
       console.log(err);
     }
   };
 
+  useEffect(() => {
+    async function fetchData() {
+      if (location.search.startsWith('?edit=')) {
+        const postId = location.search.substring(6);
+        const response = await axios.get(`/posts/${postId}`);
+        const { title, desc, cat, img } = response.data;
+        setTitle(title);
+        setValue(desc);
+        setCat(cat);
+        setFile(img);
+      }
+    }
+    fetchData();
+  }, [location.search]);
+
   return (
     <div className='add'>
       <div className='content'>
         <input
+          name='title'
           type='text'
           placeholder='Title'
+          value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <div data-color-mode='light'>
