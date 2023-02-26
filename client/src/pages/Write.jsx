@@ -121,13 +121,13 @@ const Write = () => {
           <div className='cat'>
             <input
               type='radio'
-              checked={cat === 'prpject'}
+              checked={cat === 'project'}
               name='cat'
-              value='prpject'
-              id='prpject'
+              value='project'
+              id='project'
               onChange={(e) => setCat(e.target.value)}
             />
-            <label htmlFor='prpject'>Prpject</label>
+            <label htmlFor='project'>Prpject</label>
           </div>
         </div>
       </div>
