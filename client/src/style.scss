@@ -7,7 +7,7 @@ body {
   display: flex;
   justify-content: center;
   .container {
-    width: 1024px;
+    max-width: 1024px;
 
     .link {
       text-decoration: none;
@@ -134,66 +134,58 @@ body {
     }
 
     // Home
-    .home {
-      .posts {
-        margin-top: 50px;
-        display: flex;
-        flex-direction: column;
-        gap: 150px;
-        .post {
-          gap: 100px;
+    @media (min-width: 801px) {
+      .home {
+        .posts {
+          margin-top: 50px;
           display: flex;
-
-          &:nth-child(2n + 1) {
-            flex-direction: row-reverse;
-          }
-
-          .img {
-            flex: 2;
-            position: relative;
-            max-height: 225px;
-
-            &::after {
-              content: '';
-              width: 100%;
-              height: 100%;
-              background-color: $lightGreen;
-              position: absolute;
-              top: 20px;
-              left: -20px;
-              z-index: -1;
-            }
-
-            img {
-              width: 100%;
-              max-height: 400px;
-              object-fit: cover;
-            }
-          }
-          .content {
-            flex: 3;
+          flex-direction: column;
+          gap: 150px;
+          .post {
+            gap: 100px;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            h1 {
-              font-size: 48px;
-            }
-            p {
-              font-size: 18px;
-            }
-            button {
-              width: max-content;
-              padding: 10px 20px;
-              border: none;
-              cursor: pointer;
-              background-color: white;
-              border: 1px solid teal;
-              color: teal;
 
-              &:hover {
-                border: 1px solid white;
-                background-color: $lightGreen;
-                color: black;
+            &:nth-child(2n + 1) {
+              flex-direction: row-reverse;
+            }
+
+            .img {
+              flex: 2;
+              position: relative;
+              max-height: 225px;
+
+              img {
+                width: 100%;
+                max-height: 400px;
+                object-fit: cover;
+                box-shadow: 20px 20px 2px $lightGreen;
+              }
+            }
+            .content {
+              flex: 3;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              h1 {
+                font-size: 48px;
+              }
+              p {
+                font-size: 18px;
+              }
+              button {
+                width: max-content;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+                background-color: white;
+                border: 1px solid teal;
+                color: teal;
+
+                &:hover {
+                  border: 1px solid white;
+                  background-color: $lightGreen;
+                  color: black;
+                }
               }
             }
           }
@@ -230,14 +222,6 @@ body {
         .icon {
           height: 20px;
           width: 20px;
-        }
-
-        .wmde-markdown {
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
         }
 
         img {
@@ -291,6 +275,12 @@ body {
         p {
           text-align: justify;
         }
+
+        .wmde-markdown img {
+          width: 100vw;
+          height: auto;
+          object-fit: cover;
+        }
       }
 
       .menu {
@@ -314,6 +304,7 @@ body {
           width: 100%;
           height: 200px;
           object-fit: cover;
+          box-shadow: 20px 20px 2px $lightGreen;
         }
 
         h2 {
@@ -463,6 +454,231 @@ body {
         span {
           text-align: center;
           font-size: 12px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 800px) {
+  .app {
+    display: block;
+    .container {
+      .home {
+        .posts {
+          margin-top: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 40px;
+          .post {
+            gap: 10px;
+            display: flex;
+            flex-direction: column-reverse;
+
+            .img {
+              margin: 10px;
+              position: relative;
+
+              img {
+                width: 100%;
+                max-height: 400px;
+                object-fit: cover;
+                box-shadow: 20px 20px 2px $lightGreen;
+              }
+            }
+            .content {
+              margin: 10px;
+              flex: 3;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              h1 {
+                font-size: 28px;
+              }
+              p {
+                font-size: 14px;
+              }
+              button {
+                width: max-content;
+                padding: 5px 10px;
+                border: none;
+                cursor: pointer;
+                background-color: white;
+                border: 1px solid teal;
+                color: teal;
+
+                &:hover {
+                  border: 1px solid white;
+                  background-color: $lightGreen;
+                  color: black;
+                }
+              }
+            }
+          }
+        }
+      }
+      .single {
+        display: block;
+        gap: 10px;
+        margin: 0 20px;
+
+        .content {
+          gap: 10px;
+
+          a {
+            text-decoration: none;
+            color: teal;
+          }
+
+          .linkedin {
+            font-size: 20px;
+            color: #0e76a8;
+          }
+
+          .github {
+            font-size: 20px;
+            color: #333;
+          }
+
+          .icon {
+            height: 20px;
+            width: 20px;
+          }
+
+          img {
+            // width: 100%;
+            height: 300px;
+            object-fit: cover;
+          }
+
+          .user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+
+            img {
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+
+            span {
+              font-weight: bold;
+            }
+
+            p {
+              line-height: 0px;
+            }
+          }
+          .edit {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            &:hover {
+              color: teal;
+            }
+            img {
+              width: 20px;
+              height: 20px;
+              cursor: pointer;
+            }
+          }
+
+          h1 {
+            font-size: 28px;
+            color: #333;
+          }
+
+          p {
+            text-align: justify;
+          }
+        }
+        .menu {
+          flex: 2;
+          display: flex;
+          flex-direction: column;
+          gap: 25px;
+
+          h1 {
+            font-size: 20px;
+            color: #555;
+          }
+
+          .post {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          }
+
+          img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+          }
+
+          h2 {
+            color: #555;
+          }
+
+          button {
+            width: max-content;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            background-color: white;
+            border: 1px solid teal;
+            color: teal;
+
+            &:hover {
+              border: 1px solid white;
+              background-color: $lightGreen;
+              color: black;
+            }
+          }
+        }
+      }
+      .navbar {
+        .container {
+          padding: 10px 10px;
+          justify-content: space-between;
+          display: flex;
+          align-items: center;
+          .logo {
+            img {
+              width: 80px;
+            }
+          }
+          .links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            h6 {
+              font-size: 14px;
+              font-weight: 400;
+            }
+            span {
+              cursor: pointer;
+            }
+            .write {
+              background-color: $lightGreen;
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 300;
+              border: 1px solid white;
+              &:hover {
+                background-color: white;
+                color: teal;
+                border: 1px solid teal;
+              }
+            }
+          }
         }
       }
     }

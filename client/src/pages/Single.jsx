@@ -41,8 +41,8 @@ const Single = () => {
   };
 
   return (
-    <div className='single'>
-      <div className='content' data-color-mode='light'>
+    <div className='single' data-color-mode='light'>
+      <div className='content'>
         <img src={`../upload/${post?.img}`} alt='' />
         <div className='user'>
           {post.userImg && <img src={`../upload/${post.userImg}`} alt='' />}
@@ -60,10 +60,7 @@ const Single = () => {
           )}
         </div>
         <h1>{post.title}</h1>
-        <MDEditor.Markdown
-          source={post.desc}
-          style={{ whiteSpace: 'pre-wrap' }}
-        />
+        <MDEditor.Markdown source={post.desc} />
       </div>
       <Menu cat={post.cat} />
     </div>
